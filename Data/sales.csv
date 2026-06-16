@@ -1,4 +1,4 @@
-pip install pandas matplotlib seabornOrder ID,Date,Product,Price,Quantity,Purchase Type,Payment Method,Manager,City
+ID,Date,Product,Price,Quantity,Purchase Type,Payment Method,Manager,City
 10452,07-11-2022,Fries,3.49,573.07,Online , Gift Card,Tom      Jackson,London
 10453,07-11-2022,Beverages,2.95,745.76,Online , Gift Card,       Pablo Perez,Madrid
 10454,07-11-2022,Sides & Other,4.99,200.4,In-store , Gift Card,Joao    Silva,Lisbon
