@@ -3,6 +3,8 @@ import pandas as pd
 # wczytanie danych
 df = pd.read_csv("data/sales.csv")
 
+df = df.drop_duplicates()
+
 df["Purchase Type"] = df["Purchase Type"].str.strip()
 df["Payment Method"] = df["Payment Method"].str.strip()
 df["Manager"] = df["Manager"].str.strip()
@@ -30,6 +32,11 @@ df["Year"] = df["Date"].dt.year
 
 print(df[df["Quantity"] <= 0])
 print(df[df["Price"] <= 0])
+
+df["City"] = df["City"].str.title()
+df["Product"] = df["Product"].str.strip().str.title()
+
+
 
 df.to_csv("data/sales_cleaned.csv", index=False)
 
