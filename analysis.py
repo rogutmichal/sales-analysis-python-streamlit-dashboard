@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # wczytanie danych
 df = pd.read_csv("data/sales.csv")
@@ -36,7 +37,43 @@ print(df[df["Price"] <= 0])
 df["City"] = df["City"].str.title()
 df["Product"] = df["Product"].str.strip().str.title()
 
+print("\n=== BASIC KPI ===")
+
+print(f"Number of orders: {len(df)}")
+print(f"Total revenue: {df['Revenue'].sum():,.2f}")
+print(f"Average order value: {df['Revenue'].mean():,.2f}")
+print(f"Unique products: {df['Product'].nunique()}")
+print(f"Cities: {df['City'].nunique()}")
 
 
-df.to_csv("data/sales_cleaned.csv", index=False)
+city_sales = (
+    df.groupby("City")["Revenue"]
+      .sum()
+      .sort_values(ascending=False)
+)
+
+print(city_sales)
+
+city_sales = (
+    df.groupby("City")["Revenue"]
+      .sum()
+      .sort_values(ascending=False)
+      .reset_index()
+)
+
+plt.figure(figsize=(10, 6))
+
+plt.bar(city_sales["City"], city_sales["Revenue"])
+
+plt.title("Total Revenue by City")
+plt.xlabel("City")
+plt.ylabel("Revenue")
+
+plt.xticks(rotation=45)
+
+plt.tight_layout()
+plt.show()
+
+
+# df.to_csv("data/sales_cleaned.csv", index=False)
 
