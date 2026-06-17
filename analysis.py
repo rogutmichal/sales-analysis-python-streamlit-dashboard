@@ -18,7 +18,6 @@ df["Manager"] = df["Manager"].str.replace(r"\s+", " ", regex=True)
 df["Date"] = pd.to_datetime(df["Date"], format="%d-%m-%Y")
 
 df["Price"] = pd.to_numeric(df["Price"])
-df["Quantity"] = pd.to_numeric(df["Quantity"])
 
 
 df["Quantity"] = pd.to_numeric(df["Quantity"]).round().astype(int)
@@ -145,6 +144,45 @@ plt.title("Revenue Share by Purchase Type")
 
 plt.show()
 
+manager_sales = (
+    df.groupby("Manager")["Revenue"]
+      .sum()
+      .sort_values(ascending=True)
+      .reset_index()
+)
 
+plt.figure(figsize=(10, 6))
+
+plt.barh(
+    manager_sales["Manager"],
+    manager_sales["Revenue"]
+)
+
+plt.title("Revenue by Manager")
+plt.xlabel("Revenue")
+
+plt.tight_layout()
+plt.show()
+
+
+
+payment_sales = (
+    df.groupby("Payment Method")["Revenue"]
+      .sum()
+      .reset_index()
+)
+
+plt.figure(figsize=(7, 7))
+
+plt.pie(
+    payment_sales["Revenue"],
+    labels=payment_sales["Payment Method"],
+    autopct="%1.1f%%",
+    wedgeprops={"width": 0.4}
+)
+
+plt.title("Revenue Share by Payment Method")
+
+plt.show()
 # df.to_csv("data/sales_cleaned.csv", index=False)
 
