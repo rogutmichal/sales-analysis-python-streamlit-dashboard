@@ -1,6 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+plt.style.use("seaborn-v0_8-darkgrid")
+
 # wczytanie danych
 df = pd.read_csv("data/sales.csv")
 
@@ -184,6 +186,9 @@ plt.pie(
 plt.title("Revenue Share by Payment Method")
 
 plt.show()
+
+
+
 
 print("\n=== KEY INSIGHTS ===")
 
