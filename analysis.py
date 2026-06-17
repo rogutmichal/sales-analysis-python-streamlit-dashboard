@@ -74,6 +74,77 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
 
+product_sales = (
+    df.groupby("Product")["Revenue"]
+      .sum()
+      .sort_values(ascending=True)
+      .reset_index()
+)
+
+plt.figure(figsize=(10, 6))
+
+bars = plt.barh(
+    product_sales["Product"],
+    product_sales["Revenue"]
+)
+
+plt.title("Revenue by Product")
+plt.xlabel("Revenue")
+plt.ylabel("Product")
+
+for bar in bars:
+    width = bar.get_width()
+    plt.text(
+        width,
+        bar.get_y() + bar.get_height()/2,
+        f"{width:,.0f}",
+        va="center"
+    )
+
+plt.tight_layout()
+plt.show()
+
+daily_revenue = (
+    df.groupby("Date")["Revenue"]
+      .sum()
+      .reset_index()
+)
+
+plt.figure(figsize=(12, 6))
+
+plt.plot(
+    daily_revenue["Date"],
+    daily_revenue["Revenue"]
+)
+
+plt.title("Revenue Trend Over Time")
+plt.xlabel("Date")
+plt.ylabel("Revenue")
+
+plt.xticks(rotation=45)
+
+plt.tight_layout()
+plt.show()
+
+
+purchase_sales = (
+    df.groupby("Purchase Type")["Revenue"]
+      .sum()
+      .reset_index()
+)
+
+plt.figure(figsize=(8, 5))
+
+plt.pie(
+    purchase_sales["Revenue"],
+    labels=purchase_sales["Purchase Type"],
+    autopct="%1.1f%%"
+)
+
+plt.title("Revenue Share by Purchase Type")
+
+plt.show()
+
 
 # df.to_csv("data/sales_cleaned.csv", index=False)
 
