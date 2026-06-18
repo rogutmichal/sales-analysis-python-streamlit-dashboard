@@ -7,21 +7,86 @@ plt.style.use("seaborn-v0_8-darkgrid")
 # 1. LOAD DATA
 def load_data(path: str) -> pd.DataFrame:
     df = pd.read_csv(path)
-    df = df.drop_duplicates()
 
-    cols_to_strip = ["Purchase Type", "Payment Method", "Manager", "City", "Product"]
+    required_columns = [
+        "Date",
+        "Price",
+        "Quantity",
+        "Purchase Type",
+        "Payment Method",
+        "Manager",
+        "City",
+        "Product"
+    ]
+
+    missing_columns = set(required_columns) - set(df.columns)
+
+    if missing_columns:
+        raise ValueError(
+            f"Missing required columns: {missing_columns}"
+        )
+
+
+    cols_to_strip = [
+        "Purchase Type",
+        "Payment Method",
+        "Manager",
+        "City",
+        "Product"
+    ]
+
     for col in cols_to_strip:
-        df[col] = df[col].str.strip()
+         df[col] = df[col].astype(str).str.strip()
 
-    df["Manager"] = df["Manager"].str.replace(r"\s+", " ", regex=True)
+    df["Manager"] = df["Manager"].str.replace(
+        r"\s+",
+        " ",
+        regex=True
+    )
 
     return df
 
 # 2. PREPROCESSING
 def preprocess(df: pd.DataFrame) -> pd.DataFrame:
-    df["Date"] = pd.to_datetime(df["Date"], format="%d-%m-%Y")
-    df["Price"] = pd.to_numeric(df["Price"])
-    df["Quantity"] = pd.to_numeric(df["Quantity"]).round().astype(int)
+
+    df["Date"] = pd.to_datetime(
+        df["Date"],
+        format="%d-%m-%Y",
+         errors="coerce"
+
+    )
+
+    df["Price"] = pd.to_numeric(df["Price"], errors="coerce")
+  
+    df["Quantity"] = pd.to_numeric(df["Quantity"], errors="coerce").round().astype(int, errors="ignore")
+
+
+    df = df.dropna(subset=["Date", "Price", "Quantity"])
+
+    # DATA QUALITY CHECK
+    invalid_quantity = df[df["Quantity"] <= 0]
+    invalid_price = df[df["Price"] <= 0]
+
+
+    if len(invalid_quantity) > 0:
+        print(
+            f"WARNING: Removed {len(invalid_quantity)} rows with Quantity <= 0"
+        )
+
+    if len(invalid_price) > 0:
+        print(
+            f"WARNING: Removed {len(invalid_price)} rows with Price <= 0"
+        )
+
+
+    # REMOVE INVALID DATA        
+    df = df.drop_duplicates().copy()
+
+    df = df[
+        (df["Quantity"] > 0) &
+        (df["Price"] > 0)
+    ].copy()
+
 
     df["Revenue"] = df["Price"] * df["Quantity"]
 
@@ -32,8 +97,8 @@ def preprocess(df: pd.DataFrame) -> pd.DataFrame:
     df["City"] = df["City"].str.title()
     df["Product"] = df["Product"].str.title()
 
-    return df
 
+    return df
 
 # 3. KPI
 def print_kpis(df: pd.DataFrame):
@@ -140,8 +205,7 @@ def main():
     df = load_data("data/sales.csv")
     df = preprocess(df)
 
-    print(df[df["Quantity"] <= 0])
-    print(df[df["Price"] <= 0])
+   
 
     print_kpis(df)
 
