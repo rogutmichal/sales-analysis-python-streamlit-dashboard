@@ -1,6 +1,6 @@
-# 📊 Analiza danych sprzedażowych (Python + Pandas + Matplotlib)
+#  Analiza danych sprzedażowych (Python + Pandas + Matplotlib)
 
-## 📌 Opis projektu
+##  Opis projektu
 
 Ten projekt to kompletny pipeline analizy danych sprzedażowych stworzony w Pythonie. Obejmuje on wczytanie danych, ich czyszczenie, preprocessing, obliczanie kluczowych wskaźników biznesowych (KPI), agregacje oraz wizualizacje.
 
@@ -8,7 +8,7 @@ Celem projektu jest szybka analiza wyników sprzedaży oraz identyfikacja najwa�
 
 ---
 
-## ⚙️ Technologie
+##  Technologie
 
 - Python 3
 - Pandas – analiza i przetwarzanie danych
@@ -16,7 +16,7 @@ Celem projektu jest szybka analiza wyników sprzedaży oraz identyfikacja najwa�
 
 ---
 
-## 🧹 Proces analizy danych
+##  Proces analizy danych
 
 ### 1. Wczytanie danych
 - Import danych z pliku CSV
@@ -55,7 +55,7 @@ Dane są grupowane według:
 ### 5. Wizualizacja danych
 Projekt generuje wykresy:
 
-- 📊 przychód według miasta
-- 📊 przychód według produktu
-- 📈 trend sprzedaży w czasie
-- 🥧 udział procent
+-  przychód według miasta
+-  przychód według produktu
+-  trend sprzedaży w czasie
+- udział procent
