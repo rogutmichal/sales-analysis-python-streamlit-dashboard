@@ -79,7 +79,6 @@ def preprocess(df: pd.DataFrame) -> pd.DataFrame:
         )
 
 
-    # REMOVE INVALID DATA        
     df = df.drop_duplicates().copy()
 
     df = df[
