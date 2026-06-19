@@ -49,6 +49,9 @@ def load_data(path: str) -> pd.DataFrame:
 # 2. PREPROCESSING
 def preprocess(df: pd.DataFrame) -> pd.DataFrame:
 
+
+    df = df.drop_duplicates().copy()
+
     df["Date"] = pd.to_datetime(
         df["Date"],
         format="%d-%m-%Y",
@@ -79,7 +82,6 @@ def preprocess(df: pd.DataFrame) -> pd.DataFrame:
         )
 
 
-    df = df.drop_duplicates().copy()
 
     df = df[
         (df["Quantity"] > 0) &
