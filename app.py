@@ -46,16 +46,84 @@ fig = px.bar(
     text="Revenue",
     title="Revenue Distribution by City"
     
+    
+    
 )
 
 fig.update_traces(texttemplate='%{text:,.0f}', textposition='outside')
 
 fig.update_layout(
-    xaxis_title="City",
-    yaxis_title="Revenue",
     title_x=0.5,
     uniformtext_minsize=8,
-    uniformtext_mode='hide'
+    uniformtext_mode='hide',
+    barcornerradius=15,
+    
 )
 
 st.plotly_chart(fig, use_container_width=True)
+
+
+st.subheader("Revenue by Product")
+
+product_sales = group_revenue(df, "Product")
+product_sales = (
+    group_revenue(df, "Product")
+    .head(5)
+    .iloc[::-1]
+)
+fig = px.bar(
+    product_sales,
+    x="Revenue",
+    y="Product",
+    orientation="h",
+    text="Revenue",
+    title="Top Products by Revenue"
+)
+
+fig.update_traces(texttemplate='%{text:,.0f}', textposition='outside')
+
+fig.update_layout(
+    title_x=0.5,
+    yaxis_title="",
+    xaxis_title="Revenue",
+    height=500
+)
+
+st.plotly_chart(fig, use_container_width=True)
+
+fig.update_yaxes(categoryorder="total ascending")
+
+st.subheader("Revenue Trend Over Time")
+
+daily_revenue = (
+    df.groupby("Date")["Revenue"]
+    .sum()
+    .reset_index()
+)
+
+
+fig = px.line(
+    daily_revenue,
+    x="Date",
+    y="Revenue",
+    title="Daily Revenue Trend",
+    markers=True
+)
+
+
+fig.update_layout(
+    title_x=0.5,
+    height=500
+)
+
+
+st.plotly_chart(fig, use_container_width=True)
+
+best_day = daily_revenue.loc[
+    daily_revenue["Revenue"].idxmax()
+]
+
+st.info(
+    f"📅 Best sales day: {best_day['Date'].date()} "
+    f"with revenue {best_day['Revenue']:,.0f}"
+)
