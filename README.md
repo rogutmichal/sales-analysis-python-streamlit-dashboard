@@ -2,7 +2,7 @@
 
 ##  Opis projektu
 
-Ten projekt to kompletny pipeline analizy danych sprzedażowych stworzony w Pythonie. Obejmuje on wczytanie danych, ich czyszczenie, preprocessing, obliczanie kluczowych wskaźników biznesowych (KPI), agregacje oraz wizualizacje.
+Ten projekt to kompletny pipeline analizy danych sprzedażowych stworzony w Pythonie. Obejmuje on wczytanie danych, ich czyszczenie, preprocessing, obliczanie kluczowych wskaźników biznesowych (KPI), agregacje oraz wizualizacje. W projekcie wykorzystano zbiór danych "Restaurant Sales Data" autorstwa Data Science Lovers: https://www.kaggle.com/datasets/rohitgrewal/restaurant-sales-data/data
 
 Celem projektu jest szybka analiza wyników sprzedaży oraz identyfikacja najważniejszych trendów w danych.
 
