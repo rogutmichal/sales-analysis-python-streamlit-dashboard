@@ -59,8 +59,8 @@ filtered_df = df[
 
 # HEADER
 
-
-st.title("Sales Analysis Dashboard")
+st.title("Sales Performance Dashboard")
+st.caption("Interactive overview of revenue, products, managers and sales trends")
 
 
 
@@ -108,13 +108,45 @@ with col4:
             unique_products
         )
 
+
 # ROW 1
 
-
-
-col1, col2 = st.columns(2)
+col1, col2 = st.columns([2, 1])
 
 with col1:
+
+    st.subheader("Revenue Trend")
+
+    daily_revenue = (
+        filtered_df
+        .groupby("Date")["Revenue"]
+        .sum()
+        .reset_index()
+    )
+
+    fig = px.line(
+        daily_revenue,
+        x="Date",
+        y="Revenue",
+        markers=True
+    )
+
+    fig.update_layout(
+        height=380,
+        margin=dict(
+            l=10,
+            r=10,
+            t=30,
+            b=10
+        )
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
+
+with col2:
 
     st.subheader("Revenue by City")
 
@@ -137,6 +169,59 @@ with col1:
 
     fig.update_layout(
         height=380,
+        margin=dict(
+            l=10,
+            r=10,
+            t=30,
+            b=10
+        )
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
+# ROW 2
+
+col1, col2 = st.columns(2)
+
+with col1:
+
+    st.subheader("Manager Performance")
+
+    manager_sales = group_revenue(
+        filtered_df,
+        "Manager"
+    )
+
+    top_manager = manager_sales.iloc[0]
+
+    kpi1, kpi2 = st.columns(2)
+
+    kpi1.metric(
+        "Top Manager",
+        top_manager["Manager"]
+    )
+
+    kpi2.metric(
+        "Revenue",
+        f"{top_manager['Revenue']:,.0f}"
+    )
+
+    fig = px.bar(
+        manager_sales,
+        x="Manager",
+        y="Revenue",
+        text="Revenue"
+    )
+
+    fig.update_traces(
+        texttemplate="%{text:,.0f}",
+        textposition="outside"
+    )
+
+    fig.update_layout(
+        height=300,
         margin=dict(
             l=10,
             r=10,
@@ -188,95 +273,6 @@ with col2:
 
     fig.update_yaxes(
         categoryorder="total ascending"
-    )
-
-    st.plotly_chart(
-        fig,
-        use_container_width=True
-    )
-
-
-# ROW 2
-
-
-col1, col2 = st.columns(2)
-
-with col1:
-
-    st.subheader("Revenue Trend")
-
-    daily_revenue = (
-        filtered_df
-        .groupby("Date")["Revenue"]
-        .sum()
-        .reset_index()
-    )
-
-    fig = px.line(
-        daily_revenue,
-        x="Date",
-        y="Revenue",
-        markers=True
-    )
-
-    fig.update_layout(
-        height=380,
-        margin=dict(
-            l=10,
-            r=10,
-            t=30,
-            b=10
-        )
-    )
-
-    st.plotly_chart(
-        fig,
-        use_container_width=True
-    )
-
-with col2:
-
-    st.subheader("Manager Performance")
-
-    manager_sales = group_revenue(
-        filtered_df,
-        "Manager"
-    )
-
-    top_manager = manager_sales.iloc[0]
-
-    kpi1, kpi2 = st.columns(2)
-
-    kpi1.metric(
-        "Top Manager",
-        top_manager["Manager"]
-    )
-
-    kpi2.metric(
-        "Revenue",
-        f"{top_manager['Revenue']:,.0f}"
-    )
-
-    fig = px.bar(
-        manager_sales,
-        x="Manager",
-        y="Revenue",
-        text="Revenue"
-    )
-
-    fig.update_traces(
-        texttemplate="%{text:,.0f}",
-        textposition="outside"
-    )
-
-    fig.update_layout(
-        height=300,
-        margin=dict(
-            l=10,
-            r=10,
-            t=30,
-            b=10
-        )
     )
 
     st.plotly_chart(
