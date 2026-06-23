@@ -69,6 +69,8 @@ st.title("Sales Analysis Dashboard")
 # KPI
 
 
+
+
 total_revenue = filtered_df["Revenue"].sum()
 orders = len(filtered_df)
 avg_order_value = filtered_df["Revenue"].mean()
@@ -78,26 +80,33 @@ st.subheader("Key Performance Indicators")
 
 col1, col2, col3, col4 = st.columns(4)
 
-col1.metric(
-    "Total Revenue",
-    f"{total_revenue:,.0f}"
-)
+with col1:
+    with st.container(border=True):
+        st.metric(
+            "Revenue",
+            f"{total_revenue:,.0f} €"
+        )
 
-col2.metric(
-    "Orders",
-    orders
-)
+with col2:
+    with st.container(border=True):
+        st.metric(
+            "Orders",
+            f"{orders:,}"
+        )
 
-col3.metric(
-    "Avg Order Value",
-    f"{avg_order_value:,.2f}"
-)
+with col3:
+    with st.container(border=True):
+        st.metric(
+            "Avg Order",
+            f"{avg_order_value:,.0f} €"
+        )
 
-col4.metric(
-    "Products",
-    unique_products
-)
-
+with col4:
+    with st.container(border=True):
+        st.metric(
+            "Products",
+            unique_products
+        )
 
 # ROW 1
 
