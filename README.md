@@ -53,7 +53,7 @@ Dane są grupowane według:
 - typu zakupu
 - metody płatności
 
-### 5. Wizualizacja danych
+### 5. Wizualizacja danych (src/analysis.py)
 Projekt generuje wykresy:
 
 -  przychód według miasta
@@ -81,7 +81,7 @@ Projekt generuje wykresy:
 
 ---
 
-## Aktualizacja – Interaktywny Dashboard (Streamlit + Plotly)
+## Aktualizacja(App.py) – Interaktywny Dashboard (Streamlit + Plotly)
 
 Projekt został rozszerzony o interaktywny dashboard webowy umożliwiający analizę danych sprzedażowych w czasie rzeczywistym.
 
