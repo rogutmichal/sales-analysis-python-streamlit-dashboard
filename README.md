@@ -119,14 +119,25 @@ Dashboard prezentuje:
 * przychód według miasta
 * wyniki sprzedażowe menedżerów
 * TOP 5 najlepiej sprzedających się produktów
-* strukturę metod płatności
-* strukturę typów zakupów
+* podział metod płatności
+* podział typów zakupów
 
 #### Optymalizacja wydajności
 
 Zastosowano mechanizm `@st.cache_data`, który ogranicza ponowne wczytywanie oraz przetwarzanie danych, poprawiając wydajność aplikacji.
 
 ### Widok dashboardu
+<img width="1891" height="440" alt="image" src="https://github.com/user-attachments/assets/79f42c1c-95de-4304-813c-080afc3a657a" />
 
-*Tutaj możesz dodać zrzuty ekranu aplikacji Streamlit.*
+
+<img width="1447" height="557" alt="image" src="https://github.com/user-attachments/assets/81a840a7-9dbe-4662-8fa8-9dfefff259a0" />
+
+
+<img width="1447" height="625" alt="image" src="https://github.com/user-attachments/assets/6bbd011f-9cd8-4e37-9491-0ff4faf014db" />
+
+
+<img width="1457" height="561" alt="image" src="https://github.com/user-attachments/assets/1d48422a-15a9-44e4-b45d-9885a7d8739f" />
+
+
+
 
