@@ -147,3 +147,31 @@ The application uses the `@st.cache_data` decorator to cache loaded and preproce
 
 <img width="1457" height="561" alt="image" src="https://github.com/user-attachments/assets/1d48422a-15a9-44e4-b45d-9885a7d8739f" />
 
+
+---
+
+## How to Run the Project
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/your-username/sales-data-analysis.git
+cd sales-data-analysis
+```
+
+
+### 2. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### Run Classical Analysis
+```bash
+python analysis.py
+```
+
+### Run Interactive Dashboard (Streamlit)
+```bash
+streamlit run app.py
+```
+
+
